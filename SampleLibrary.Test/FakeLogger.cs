@@ -12,6 +12,8 @@ namespace SampleLibrary.Test
         public IReadOnlyList<LogEntry> LoggedEntries 
             => _loggedEntries;
 
+        #region ILogger
+        
         public IDisposable BeginScope<TState>(TState state) {
             throw new NotImplementedException();
         }
@@ -29,6 +31,8 @@ namespace SampleLibrary.Test
         {
             _loggedEntries.Add(new LogEntry(logLevel, formatter(state, exception), exception));
         }
+        
+        #endregion
 
         public IReadOnlyList<LogEntry> TakeSnapshot() {
             return new List<LogEntry>(LoggedEntries);
@@ -52,8 +56,6 @@ namespace SampleLibrary.Test
             return LoggedEntries
                 .Skip(numberOfEntriesBeforeBookmark)
                 .ToList();
-        }
-
-        
+        }       
     }
 }
