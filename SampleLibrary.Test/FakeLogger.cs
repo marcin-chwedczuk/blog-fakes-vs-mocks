@@ -27,7 +27,7 @@ namespace SampleLibrary.Test
             Exception exception, 
             Func<TState, Exception, string> formatter) 
         {
-            _loggedEntries.Add(new LogEntry(logLevel, formatter(state, exception)));
+            _loggedEntries.Add(new LogEntry(logLevel, formatter(state, exception), exception));
         }
 
         public IReadOnlyList<LogEntry> TakeSnapshot() {
@@ -45,5 +45,15 @@ namespace SampleLibrary.Test
                 .Take(numberOfEntriesBeforeBookmark)
                 .ToList();
         }
+
+        public IReadOnlyList<LogEntry> GetLogEntriesAfterBookmark(string name) {
+            int numberOfEntriesBeforeBookmark = _bookmarks[name];
+
+            return LoggedEntries
+                .Skip(numberOfEntriesBeforeBookmark)
+                .ToList();
+        }
+
+        
     }
 }
