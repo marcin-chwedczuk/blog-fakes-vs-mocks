@@ -12,14 +12,14 @@ namespace SampleLibrary.Test
         private readonly string JOB_NAME = "TestJob";
 
         private readonly FakeLogger<JobExecutor> _fakeLogger;
-        private readonly Job _bookmarkingJob;
+        private readonly Job _job;
         
         private readonly JobExecutor _jobExecutor;
 
         public JobExecutorTest_UsingFakes() {
             _fakeLogger = new FakeLogger<JobExecutor>();
 
-            _bookmarkingJob = new ActionJob(JOB_NAME, () => {
+            _job = new ActionJob(JOB_NAME, () => {
                 _fakeLogger.AddBookmark(JOB_STARTED);
                 _fakeLogger.AddBookmark(JOB_FINISHED);
             });
@@ -30,7 +30,7 @@ namespace SampleLibrary.Test
         [Fact]
         public async Task Should_log__job_is_starting__message_before_starting_a_job() {
             // Act
-            await _jobExecutor.ExecuteAsync(_bookmarkingJob);
+            await _jobExecutor.ExecuteAsync(_job);
 
             // Assert
             var entries =
@@ -45,7 +45,7 @@ namespace SampleLibrary.Test
         [Fact]
         public async Task Should_log__job_executed__message_after_job_execution() {
             // Act
-            await _jobExecutor.ExecuteAsync(_bookmarkingJob);
+            await _jobExecutor.ExecuteAsync(_job);
 
             // Assert
             var entries =

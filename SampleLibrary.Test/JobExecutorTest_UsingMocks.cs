@@ -23,7 +23,7 @@ namespace SampleLibrary.Test {
             var logger = Substitute.For<ILogger<JobExecutor>>();
 
             logger
-                // pitfall: using `x => x.Log(0, 0, 0, null, null)` will not work
+                // pitfall: using `x => x.Log(0, 0, 0, null, null)` here will not work
                 .WhenForAnyArgs(x => x.Log(0, 0, null, null, null))
                 .Do(call => {
                     var logLevel = call.ArgAt<LogLevel>(0);
