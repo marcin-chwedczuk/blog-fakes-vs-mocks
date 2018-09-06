@@ -6,7 +6,7 @@ using NFluent;
 using Xunit;
 namespace SampleLibrary.Test
 {
-    public class JobExecutorTest {
+    public class JobExecutorTest_UsingFakes {
         private readonly string JOB_STARTED = "JOB_STARTED_FAKELOGGER_BOOKMARK";
         private readonly string JOB_FINISHED = "JOB_FINISHED_FAKELOGGER_BOOKMARK";
         private readonly string JOB_NAME = "TestJob";
@@ -16,8 +16,7 @@ namespace SampleLibrary.Test
         
         private readonly JobExecutor _jobExecutor;
 
-
-        public JobExecutorTest() {
+        public JobExecutorTest_UsingFakes() {
             _fakeLogger = new FakeLogger<JobExecutor>();
 
             _bookmarkingJob = new ActionJob(JOB_NAME, () => {
